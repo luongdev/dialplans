@@ -1,0 +1,18 @@
+<context name="${domain_name}">
+  <extension name="user_exists" continue="true" app_uuid="9a2f6566-d449-4970-8527-79b278682ac7" order="20" global="true">
+    <condition field="" expression="">
+      <action application="set" data="user_exists=${user_exists id ${destination_number} ${domain_name}}" inline="true"/>
+      <action application="set" data="from_user_exists=${user_exists id ${sip_from_user} ${domain_name}}" inline="true"/>
+    </condition>
+    <condition field="${user_exists}" expression="^true$">
+      <action application="set" data="extension_uuid=${user_data ${destination_number}@${domain_name} var extension_uuid}" inline="true"/>
+      <action application="set" data="user_record=${user_data ${destination_number}@${domain_name} var user_record}" inline="true"/>
+    </condition>
+    <condition field="${from_user_exists}" expression="^true$">
+      <action application="set" data="from_extension_uuid=${user_data ${sip_from_user}@${domain_name} var extension_uuid}" inline="true"/>
+    </condition>
+    <condition field="${from_extension_uuid}" expression="^${extension_uuid}$">
+      <action application="hangup"/>
+    </condition>
+  </extension>
+</context>

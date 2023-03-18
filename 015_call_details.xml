@@ -1,0 +1,17 @@
+<context name="public">
+  <extension name="call_details" continue="true" app_uuid="9a2f6566-d449-4970-8527-79b278682ac7" global="true" order="15">
+    <condition field="${from_user_exists}" expression="^true$" break="never">
+      <action application="set" data="global_direction=outbound" inline="true" />
+      <action application="set" data="caller_id_name=${caller_id_name}" inline="true"/>
+      <action application="set" data="caller_id_number=${caller_id_number}" inline="true"/>
+
+      <anti-action application="set" data="global_direction=inbound" inline="true" />
+      <anti-action application="set" data="caller_id_name=${destination_number}" inline="true"/>
+      <anti-action application="set" data="caller_id_number=${destination_number}" inline="true"/>
+    </condition>
+
+    <condition field="${from_user_exists}" expression="^true$" break="always">
+      <action application="transfer" data="${destination_number}@${domain_name}" />
+    </condition>
+  </extension>
+</context>

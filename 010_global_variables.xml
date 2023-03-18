@@ -1,0 +1,7 @@
+<context name="${domain_name}">
+  <extension name="global_variables" continue="true" app_uuid="9a2f6566-d449-4970-8527-79b278682ac7" order="10">
+    <condition field="" expression="">
+      <action application="set" data="RFC2822_DATE=${strftime(%a, %d %b %Y %T %z)}" />
+    </condition>
+  </extension>
+</context>
